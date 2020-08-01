@@ -1,3 +1,12 @@
+# EtherBet
+Final project for COMP 3010 - Distributed Computing
+
+Instructor: Rob Guderian
+
+Ethereum dApp for peer to peer bets on sporting and esporting events.
+
+# Help
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
