@@ -27,7 +27,7 @@ const StyledImage = styled.img`
 	height: auto;
 `;
 
-const Bar = ({}) => {
+const Bar = (prop) => {
 	return (
 		<StyledBar>
 			<StyledImage src={Logo} />
