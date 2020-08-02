@@ -1,40 +1,40 @@
-import React from "react";
-import styled from "styled-components";
-import Logo from "../images/EB.png";
+import React from 'react'
+import styled from 'styled-components'
+import Logo from '../images/EB.png'
 
 const StyledBar = styled.div`
-	margin: auto;
-	height: 5%;
-	width: 100%;
-	display: flex;
-	text-align: center;
-	flex-direction: row;
-	justify-content: center;
-	position: relative;
-	background: rgba(256, 256, 256, 0.07);
-`;
+    margin: auto;
+    height: 5%;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    background: rgba(256, 256, 256, 0.07);
+`
 
-const Title = styled.h1.attrs((props) => ({
-	color: props.color || "black",
+const Title = styled.h1.attrs(props => ({
+    color: props.color || 'black',
 }))`
-	margin: 0;
+    margin: 0;
 
-	color: ${(props) => props.color};
-`;
+    color: ${props => props.color};
+`
 
 const StyledImage = styled.img`
-	width: 40px;
-	height: auto;
-`;
+    width: 40px;
+    height: auto;
+`
 
-const Bar = (prop) => {
-	return (
-		<StyledBar>
-			<StyledImage src={Logo} />
-			<Title color="#329696">Ether</Title>
-			<Title>Bet</Title>
-		</StyledBar>
-	);
-};
+const Bar = prop => {
+    return (
+        <StyledBar>
+            <StyledImage src={Logo} />
+            <Title color="#329696">Ether</Title>
+            <Title>Bet</Title>
+        </StyledBar>
+    )
+}
 
-export default Bar;
+export default Bar

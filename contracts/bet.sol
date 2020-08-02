@@ -38,7 +38,7 @@ contract Bet {
     }
 
     function setOutcome(uint8 _outcome) public {
-        require(game.outcome == GameOutcome.PENDING, "Game already concluded");
+        require(game.outcome == GameOutcome.PENDING, 'Game already concluded');
         require(game.gameStart < block.timestamp, "Game hasn't started yet");
 
         game.outcome = GameOutcome(_outcome);
@@ -74,7 +74,7 @@ contract Bet {
     {
         require(
             address(this).balance >= amt,
-            "Not enough funds to pay the winner"
+            'Not enough funds to pay the winner'
         );
         winner.transfer(amt);
     }
