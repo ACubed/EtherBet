@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../EB.png";
+import Logo from "../images/EB.png";
 
 const StyledBar = styled.div`
 	margin: auto;

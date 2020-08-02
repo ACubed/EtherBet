@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Card from "./Card.js";
 import Bar from "./Bar.js";
-import NBALOGO from "../NBA_2020_Logo.png";
-import LCSLOGO from "../LCS_2020_Logo.png";
-import NHLLOGO from "../NHL_2020_Logo.png";
+import NBALOGO from "../images/NBA_2020_Logo.png";
+import LCSLOGO from "../images/LCS_2020_Logo.png";
+import NHLLOGO from "../images/NHL_2020_Logo.png";
 
 const StyledApp = styled.div`
 	align-items: center;
