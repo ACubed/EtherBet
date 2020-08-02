@@ -1,4 +1,4 @@
-pragma solidity ^0.6.6;
+pragma solidity ^0.7.0;
 
 contract Bet {
     struct Team {
@@ -39,7 +39,7 @@ contract Bet {
 
     function setOutcome(uint8 _outcome) public {
         require(game.outcome == GameOutcome.PENDING, "Game already concluded");
-        require(game.gameStart < now, "Game hasn't started yet");
+        require(game.gameStart < block.timestamp, "Game hasn't started yet");
 
         game.outcome = GameOutcome(_outcome);
         payWinners();
