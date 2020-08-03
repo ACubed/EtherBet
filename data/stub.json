@@ -1,0 +1,15 @@
+{
+    "LCS" : [
+        {"time_stamp" : 1596481388, "home" : "Team Liquid", "away" : "Ninjas in Pyjamas", "outcome": ""},
+        {"time_stamp" : 1596491020, "home" : "Cloud9", "away" : "Evil Geniuses", "outcome": ""}
+    ],
+    "NHL" : [
+        {"time_stamp" : 1596494114, "home" : "Winnipeg Jets", "away" : "Toronto Maple Leafs", "outcome": ""},
+        {"time_stamp" : 1596499231, "home" : "Edmonton Oilers", "away" : "Vancouver Canucks", "outcome": ""}
+
+    ],
+    "NBA" : [
+        {"time_stamp" : 1596491547, "home" : "Los Angeles Lakers", "away" : "Toronto Raptors", "outcome": ""},
+        {"time_stamp" : 1596498362, "home" : "Boston Celtics", "away" : "Miami Heat", "outcome": ""}
+    ]
+}
