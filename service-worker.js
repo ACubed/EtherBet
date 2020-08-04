@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/EtherBet/precache-manifest.6038c6995ab5cfe2afd80e06be87b0f2.js"
+  "/EtherBet/precache-manifest.f91c1a1a5e2a7c33bc4991dcb639d1fe.js"
 );
 
 self.addEventListener('message', (event) => {
