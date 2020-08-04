@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from '../images/EB.png';
+import Logo from '../images/ether_bet.png';
 
 const StyledBar = styled.div`
     margin: auto;
@@ -14,14 +14,6 @@ const StyledBar = styled.div`
     background: rgba(256, 256, 256, 0.07);
 `;
 
-const Title = styled.h1.attrs(props => ({
-    color: props.color || 'black',
-}))`
-    margin: 0;
-    padding: 0;
-    color: ${props => props.color};
-`;
-
 const StyledImage = styled.img`
     width: auto;
     height: 40px;
@@ -31,8 +23,6 @@ const Bar = prop => {
     return (
         <StyledBar>
             <StyledImage src={Logo} />
-            <Title color="#329696">Ether</Title>
-            <Title>Bet</Title>
         </StyledBar>
     );
 };

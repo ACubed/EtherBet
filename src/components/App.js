@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from './Card.js';
 import Bar from './Bar.js';
-import NBALOGO from '../images/NBA_2020_Logo.png';
-import LCSLOGO from '../images/LCS_2020_Logo.png';
-import NHLLOGO from '../images/NHL_2020_Logo.png';
+import LOGO_NBA from '../images/icon_nba.png';
+import LOGO_NHL from '../images/icon_nhl.png';
+import LOGO_LCS from '../images/icon_lcs.png';
+import BG_NBA from '../images/card_bg_nba.png';
+import BG_NHL from '../images/card_bg_nhl.png';
+import BG_LCS from '../images/card_bg_lcs.png';
 
 const StyledApp = styled.div`
     align-items: center;
@@ -28,9 +31,9 @@ const App = () => {
         <StyledApp className="App">
             <Bar />
             <StyledCardContainer>
-                <Card name="NBA" src={NBALOGO} />
-                <Card name="NHL" src={NHLLOGO} />
-                <Card name="LCS" src={LCSLOGO} />
+                <Card name="NBA" src={LOGO_NBA} bg={BG_NBA} />
+                <Card name="NHL" src={LOGO_NHL} bg={BG_NHL} />
+                <Card name="LCS" src={LOGO_LCS} bg={BG_LCS} />
             </StyledCardContainer>
         </StyledApp>
     );
