@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/EtherBet/static/css/main.9d66b76c.chunk.css",
-    "main.js": "/EtherBet/static/js/main.2b7b9f9e.chunk.js",
-    "main.js.map": "/EtherBet/static/js/main.2b7b9f9e.chunk.js.map",
+    "main.css": "/EtherBet/static/css/main.99fc5bdd.chunk.css",
+    "main.js": "/EtherBet/static/js/main.f026b12c.chunk.js",
+    "main.js.map": "/EtherBet/static/js/main.f026b12c.chunk.js.map",
     "runtime-main.js": "/EtherBet/static/js/runtime-main.3def1451.js",
     "runtime-main.js.map": "/EtherBet/static/js/runtime-main.3def1451.js.map",
     "static/js/2.53aeee9c.chunk.js": "/EtherBet/static/js/2.53aeee9c.chunk.js",
     "static/js/2.53aeee9c.chunk.js.map": "/EtherBet/static/js/2.53aeee9c.chunk.js.map",
     "index.html": "/EtherBet/index.html",
-    "precache-manifest.7870c4ff498266b1bc65e3bc12035167.js": "/EtherBet/precache-manifest.7870c4ff498266b1bc65e3bc12035167.js",
+    "precache-manifest.6038c6995ab5cfe2afd80e06be87b0f2.js": "/EtherBet/precache-manifest.6038c6995ab5cfe2afd80e06be87b0f2.js",
     "service-worker.js": "/EtherBet/service-worker.js",
-    "static/css/main.9d66b76c.chunk.css.map": "/EtherBet/static/css/main.9d66b76c.chunk.css.map",
+    "static/css/main.99fc5bdd.chunk.css.map": "/EtherBet/static/css/main.99fc5bdd.chunk.css.map",
     "static/js/2.53aeee9c.chunk.js.LICENSE.txt": "/EtherBet/static/js/2.53aeee9c.chunk.js.LICENSE.txt",
-    "static/media/EB.png": "/EtherBet/static/media/EB.8c6389db.png",
     "static/media/LCS_2020_Logo.png": "/EtherBet/static/media/LCS_2020_Logo.16deff09.png",
     "static/media/NBA_2020_Logo.png": "/EtherBet/static/media/NBA_2020_Logo.2febb4f6.png",
-    "static/media/NHL_2020_Logo.png": "/EtherBet/static/media/NHL_2020_Logo.4c18a901.png"
+    "static/media/NHL_2020_Logo.png": "/EtherBet/static/media/NHL_2020_Logo.4c18a901.png",
+    "static/media/ether_bet.png": "/EtherBet/static/media/ether_bet.3af53273.png"
   },
   "entrypoints": [
     "static/js/runtime-main.3def1451.js",
     "static/js/2.53aeee9c.chunk.js",
-    "static/css/main.9d66b76c.chunk.css",
-    "static/js/main.2b7b9f9e.chunk.js"
+    "static/css/main.99fc5bdd.chunk.css",
+    "static/js/main.f026b12c.chunk.js"
   ]
 }
