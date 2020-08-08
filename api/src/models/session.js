@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
 const sessionSchema = new Schema({
-    id: { type: String, required: true },
+    id: { type: Number, required: true },
     game: {
         homeTeam: {
             type: String,
@@ -14,7 +14,7 @@ const sessionSchema = new Schema({
             required: true,
         },
         time: {
-            type: Date,
+            type: Number,
             required: true,
         },
         result: {
@@ -22,9 +22,9 @@ const sessionSchema = new Schema({
             required: true,
         },
     },
-    pool: { type: BigInt },
+    pool: { type: Number },
 });
 
 const Session = mongoose.model('Session', sessionSchema);
 
-export default Session;
+module.exports = Session;

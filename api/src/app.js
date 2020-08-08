@@ -3,20 +3,21 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-const { dbConnect } = require('./models');
 
 var app = express();
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1:27017', {
+    useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', error => console.error(error));
+db.once('open', () => console.log('connected to database'));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-dbConnect().then(async () => {
-    app.listen(process.env.PORT, () => {
-        console.log(`app listening to ${process.env.PORt}`);
-    });
-});
 
 app.use('/', indexRouter);
 
