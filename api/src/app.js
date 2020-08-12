@@ -1,11 +1,13 @@
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 
-var app = express();
+const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
+app.use(cors());
 
 mongoose.connect('mongodb://127.0.0.1:27017', {
     useNewUrlParser: true,
