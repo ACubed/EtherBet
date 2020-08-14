@@ -18,7 +18,7 @@ const init_contract = async () => {
     id = await web3.eth.net.getId().catch(err => console.log('after id'));
     contract = new web3.eth.Contract(
         Bet.abi,
-        '0x0F33d9b9Ee7832eD1890044C6D0d84fD1f9d98a6'
+        '0x1eb8c75495545F577DDcE5bE8FC262072D83FBd6'
     );
     addresses = await web3.eth.getAccounts().then(item => console.log(item));
     initialize = true;
@@ -27,7 +27,7 @@ const init_contract = async () => {
 const createGame = async (timestamp, homeTeam, awayTeam) => {
     await contract.methods
         .setGame(timestamp, homeTeam, awayTeam)
-        .send()
+        .call()
         .then(
             console.log(
                 `Successfully created game at ${timestamp} with ${homeTeam} vs ${awayTeam}`
