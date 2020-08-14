@@ -2,7 +2,7 @@ const express = require('express');
 const Session = require('../models/session');
 const Web3 = require('web3');
 const Bet = require('../../../build/contracts/Bet.json');
-
+const Stub = require('../../../data/stub.json');
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -51,6 +51,22 @@ router.get('/session/:id/bet/:team', async (req, res) => {
         return res.status(200).json({ title: sessionId });
     } catch (err) {
         return res.status(500).json({ title: 'oops' });
+    }
+});
+
+router.get('/league/:name', async (req, res) => {
+    let league = req.params.name;
+    try {
+        const upcomingGames = Stub[league];
+        const schedule = [];
+        upcomingGames.forEach(game => {
+            if (game.outcome === '') {
+                schedule.push(game);
+            }
+        });
+        return res.status(200).json(schedule);
+    } catch (err) {
+        return res.status(500).json({ title: 'League not found' });
     }
 });
 
