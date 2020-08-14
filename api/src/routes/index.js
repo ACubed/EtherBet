@@ -17,7 +17,7 @@ const init_contract = async () => {
     id = await web3.eth.net.getId().catch(err => console.log('after id'));
     contract = new web3.eth.Contract(
         Bet.abi,
-        '0xdfC11bdf80B070330E96ce7d54110aE3ea07d3c4'
+        '0x6d0839A135ceF68D0C7e0a30aE8F69171469DF19'
     );
     addresses = await web3.eth.getAccounts().then(item => console.log(item));
     initialized = true;
@@ -27,8 +27,8 @@ async function createGame(timestamp, homeTeam, awayTeam) {
     contract.methods
         .setGame(timestamp, homeTeam, awayTeam)
         .send({
-            from: '0x9a394b492F5C6cBb2E55f7371BE517274EC37EFC',
-            gas: 100000,
+            from: '0x8356c1D05A0E27d275781e78f75Fa23D0C265175',
+            gas: 1000000,
         })
         .then(
             console.log(
@@ -37,12 +37,22 @@ async function createGame(timestamp, homeTeam, awayTeam) {
         );
 }
 
+async function setOutcome(winner) {
+    await contract.methods
+        .setOutcome(winner)
+        .send({
+            from: '0x8356c1D05A0E27d275781e78f75Fa23D0C265175',
+            gas: 1000000,
+        })
+        .catch(err => console.log(`away: ${err}`));
+}
+
 const bet = async home => {
     if (home) {
         await contract.methods
             .betOnHome()
             .send({
-                from: '0x9a394b492F5C6cBb2E55f7371BE517274EC37EFC',
+                from: '0xa449B3e692BE0a00E38770dA76b5849ce829Db63',
                 value: web3.utils.toWei('40', 'ether'),
                 gas: 1000000,
             })
@@ -51,7 +61,7 @@ const bet = async home => {
         await contract.methods
             .betOnAway()
             .send({
-                from: '0x9a394b492F5C6cBb2E55f7371BE517274EC37EFC',
+                from: '0x78947E82Dc7754601d6425630C95286cfbd0dC18',
                 value: web3.utils.toWei('40', 'ether'),
                 gas: 1000000,
             })
@@ -103,6 +113,9 @@ router.get('/session/:id/bet/:team', async (req, res) => {
     let bettingTeam;
     try {
         const sessionArr = await Session.find({ id: `${sessionId}` });
+        if (sessionArr.some(session => session.game.result > 0))
+            return res.status(200).json({ title: 'Game Already ended' });
+
         if (sessionArr.some(session => session.game.homeTeam === teamName))
             bettingTeam = true;
         else if (sessionArr.some(session => session.game.awayTeam === teamName))
@@ -110,7 +123,7 @@ router.get('/session/:id/bet/:team', async (req, res) => {
         else return res.status(404).json({ title: 'team not found' });
         //we have the team we want to bet on
         //place a bet on the team
-        console.log(`betting on home? ${bettingTeam}`);
+
         if (initialized) {
             await bet(bettingTeam)
                 .then(() => {
@@ -150,6 +163,46 @@ router.get('/league/:name', async (req, res) => {
     }
 });
 
+router.get('/session/:id/outcome/:team', async (req, res) => {
+    let sessionId = req.params.id;
+    let teamName = req.params.team;
+    let winningTeam;
+    try {
+        const sessionArr = await Session.find({ id: `${sessionId}` });
+        if (sessionArr.some(session => session.game.homeTeam === teamName))
+            winningTeam = 1;
+        else if (sessionArr.some(session => session.game.awayTeam === teamName))
+            winningTeam = 2;
+        else if ('draw' === teamName) winningTeam = 3;
+        else return res.status(404).json({ title: 'team not found' });
+        //we have the team we want to bet on
+        //place a bet on the team
+        if (initialized) {
+            await setOutcome(winningTeam)
+                .then(() => {
+                    console.log('set outcome!');
+                })
+                .catch(err => console.log(`error making bet ${err}`));
+        } else {
+            await init_contract();
+            await setOutcome(winningTeam)
+                .then(() => {
+                    console.log('set outcome!');
+                })
+                .catch(err => console.log(`error making bet ${err}`));
+        }
+        await Session.update(
+            { id: sessionId },
+            { $set: { 'game.result': winningTeam } }
+        );
+        res.status(200);
+        res.json(sessionArr);
+        res.end();
+        return res;
+    } catch (err) {
+        return res.status(404).json({ title: 'oops' });
+    }
+});
 //after sharing a link, the user is joining here
 router.post('/session/:id', async (req, res) => {
     let sessionId = req.params.id;
