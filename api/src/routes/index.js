@@ -3,7 +3,51 @@ const Session = require('../models/session');
 const Web3 = require('web3');
 const Bet = require('../../../build/contracts/Bet.json');
 
+let web3;
+let id;
+let contract;
+let addresses;
+let initialized = false;
+
 var router = express.Router();
+
+const init_contract = () => {
+    web3 = new Web3(`http://localhost:7545`);
+    id = await web3.eth.net.getId().catch(err => console.log('after id'));
+    contract = new web3.eth.Contract(
+        Bet.abi,
+        '0x438e1e43115Baf5d99002638272aCEC19e548556'
+    );
+    addresses = await web3.eth
+        .getAccounts()
+        .then(item => console.log(item));
+}
+
+const createGame = async (timestamp, homeTeam, awayTeam)=> {
+    await contract.methods.setGame(timestamp, homeTeam, awayTeam).call().then(
+        console.log(`Successfully created game at ${timestamp} with ${homeTeam} vs ${awayTeam}`)
+    )    
+}
+
+const bet = async home => {
+    if (home) {
+        await contract.methods
+            .betOnHome()
+            .send({
+                from: '0x2c58703f11b6bBB8A92dEA9903E777566f595E40',
+                value: '1',
+            })
+            .catch(err => console.log(`home: ${err}`));
+    } else {
+        await contract.methods
+            .betOnAway()
+            .send({
+                from: '0x2c58703f11b6bBB8A92dEA9903E777566f595E40',
+                value: '3',
+            })
+            .catch(err => console.log(`away: ${err}`));
+    }
+};
 
 router.get('/', (req, res) => {
     return res.status(200).json({ title: 'express' });
@@ -20,6 +64,7 @@ router.post('/session/:id', async (req, res) => {
         },
         pool: req.body.pool,
     });
+    
     try {
         const newSesh = await sesh.save();
         res.status(200).json(newSesh);
@@ -54,41 +99,6 @@ router.get('/session/:id/bet/:team', async (req, res) => {
     }
 });
 
-const bet = async home => {
-    const web3 = new Web3(`http://localhost:7545`);
-    console.log('after init');
-    const id = await web3.eth.net.getId().catch(err => console.log('after id'));
-
-    const contract = new web3.eth.Contract(
-        Bet.abi,
-        '0x438e1e43115Baf5d99002638272aCEC19e548556'
-    );
-    console.log('after contract');
-
-    const addresses = await web3.eth
-        .getAccounts()
-        .then(item => console.log(item));
-    console.log('after addresses');
-
-    if (home) {
-        await contract.methods
-            .betOnHome()
-            .send({
-                from: '0x2c58703f11b6bBB8A92dEA9903E777566f595E40',
-                value: '1',
-            })
-            .catch(err => console.log(`home: ${err}`));
-    } else {
-        await contract.methods
-            .betOnAway()
-            .send({
-                from: '0x2c58703f11b6bBB8A92dEA9903E777566f595E40',
-                value: '3',
-            })
-            .catch(err => console.log(`away: ${err}`));
-    }
-    console.log('after bet');
-};
 
 //after sharing a link, the user is joining here
 router.get('/session/:id', async (req, res) => {
