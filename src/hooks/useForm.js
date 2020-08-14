@@ -1,21 +1,21 @@
 import { useState } from 'react';
 
-function useForm(initialState = {}) {
-    const [state, setState] = useState(initialState);
+function useForm(initialValues = {}) {
+    const [form, setValues] = useState(initialValues);
 
     const onChange = evt =>
-        setState({
-            ...state,
+        setValues({
+            ...form,
             [evt.target.name]: evt.target.value,
         });
 
     const onToggle = evt =>
-        setState({
-            ...state,
+        setValues({
+            ...form,
             [evt.target.name]: evt.target.checked,
         });
 
-    return { state, onChange, onToggle, setState };
+    return { form, onChange, onToggle };
 }
 
 export default useForm;
