@@ -45,14 +45,12 @@ module.exports = {
         development: {
             provider: () =>
                 new HDWalletProvider(
-                    'excite exchange sure beef step estate once notable dash entry unfold pony',
+                    'valve traffic waste photo panel risk cruise stem option visual sort teach',
                     'http://127.0.0.1:7545'
                 ),
             host: '127.0.0.1', // Localhost (default: none)
             port: 8545, // Standard Ethereum port (default: none)
             network_id: '*', // Any network (default: none)
-            gasPrice: 20000000000, // 20 gwei (in wei) (default: 100 gwei)
-            gas: 20000000000000000000000, // Gas sent with each transaction (default: ~6700000)
         },
         // Another network with more advanced options...
         // advanced: {
