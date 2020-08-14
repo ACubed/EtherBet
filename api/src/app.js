@@ -9,10 +9,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 app.use(cors());
 
-mongoose.connect('mongodb://127.0.0.1:27017', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(
+    'mongodb+srv://Andy:64c8iD94OAQDhJGK@acubed.ggxkb.mongodb.net/ebdb?retryWrites=true&w=majority',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }
+);
 const db = mongoose.connection;
 db.on('error', error => console.error(error));
 db.once('open', () => console.log('connected to database'));
