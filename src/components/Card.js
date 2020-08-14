@@ -28,7 +28,7 @@ const StyledLogo = styled.img`
 const Card = ({ name, src, bg, onClick }) => {
     return (
         <StyledCard name={name} onClick={onClick} bg={bg}>
-            <StyledLogo src={src}></StyledLogo>
+            <StyledLogo name={name} src={src}></StyledLogo>
         </StyledCard>
     );
 };

@@ -28,10 +28,12 @@ const StyledCardContainer = styled.div`
     justify-content: space-around;
 `;
 
+const StyledSchedule = styled(Schedule)``;
 const App = () => {
     const [text, setText] = useState('HE L L OOOO');
     const [scheduleOpen, setScheduleOpen] = useState(false);
     const [leagueOpen, setLeagueOpen] = useState('NHL');
+    const [logoOpen, setLogoOpen] = useState();
 
     const options = {
         headers: {
@@ -49,8 +51,16 @@ const App = () => {
         });
 
     const openSchedule = league => {
+        console.log(league);
         setScheduleOpen(true);
         setLeagueOpen(league);
+        if (league === 'NHL') setLogoOpen(LOGO_NHL);
+        else if (league === 'LCS') setLogoOpen(LOGO_LCS);
+        else setLogoOpen(LOGO_NBA);
+    };
+
+    const closeSchedule = () => {
+        setScheduleOpen(false);
     };
 
     return (
@@ -76,8 +86,13 @@ const App = () => {
                     src={LOGO_LCS}
                     bg={BG_LCS}
                 />
+                {scheduleOpen && (
+                    <Schedule
+                        close={closeSchedule}
+                        league={leagueOpen}
+                        src={logoOpen}></Schedule>
+                )}
             </StyledCardContainer>
-            {scheduleOpen && <Schedule league={leagueOpen}></Schedule>}
         </StyledApp>
     );
 };
