@@ -1,4 +1,4 @@
-pragma solidity ^0.7.0;
+pragma solidity ^0.5.1;
 
 contract Bet {
     struct Team {
