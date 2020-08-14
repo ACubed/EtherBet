@@ -26,12 +26,12 @@ contract Bet {
     uint256 pool;
 
     function setGame(
-        uint256 timestamp,
+        uint256 _timestamp,
         string memory _homeTeam,
         string memory _awayTeam
-    ) external {
+    ) public {
         game = Game(
-            timestamp,
+            _timestamp,
             Team(_homeTeam),
             Team(_awayTeam),
             GameOutcome.PENDING,
