@@ -85,12 +85,16 @@ contract Bet {
     event Received(address, uint256);
 
     function betOnHome() external payable {
+        require(game.exists);
+
         homers.push(Participant(msg.sender, msg.value));
         pool += msg.value;
         emit Received(msg.sender, msg.value);
     }
 
     function betOnAway() external payable {
+        require(game.exists);
+
         awayers.push(Participant(msg.sender, msg.value));
         pool += msg.value;
         emit Received(msg.sender, msg.value);

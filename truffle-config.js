@@ -51,17 +51,18 @@ module.exports = {
             host: '127.0.0.1', // Localhost (default: none)
             port: 8545, // Standard Ethereum port (default: none)
             network_id: '*', // Any network (default: none)
-            gas: 900000,
+            gasPrice: 20000000000, // 20 gwei (in wei) (default: 100 gwei)
+            gas: 20000000000000000000000, // Gas sent with each transaction (default: ~6700000)
         },
         // Another network with more advanced options...
-        advanced: {
-            port: 8777, // Custom port
-            network_id: 1342, // Custom network
-            gas: 8500000, // Gas sent with each transaction (default: ~6700000)
-            gasPrice: 20000000000, // 20 gwei (in wei) (default: 100 gwei)
-            from: 0x05faa73658f4b88973fee1e7f9b3b6d491c1a19a, // Account to send txs from (default: accounts[0])
-            websockets: true, // Enable EventEmitter interface for web3 (default: false)
-        },
+        // advanced: {
+        //     port: 8777, // Custom port
+        //     network_id: 1342, // Custom network
+        //     gas: 8500000, // Gas sent with each transaction (default: ~6700000)
+        //     gasPrice: 20000000000, // 20 gwei (in wei) (default: 100 gwei)
+        //     from: 0x05faa73658f4b88973fee1e7f9b3b6d491c1a19a, // Account to send txs from (default: accounts[0])
+        //     websockets: true, // Enable EventEmitter interface for web3 (default: false)
+        // },
         // Useful for deploying to a public network.
         // NB: It's important to wrap the provider as a function.
         ropsten: {
