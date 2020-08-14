@@ -45,7 +45,7 @@ module.exports = {
         development: {
             provider: () =>
                 new HDWalletProvider(
-                    'valve traffic waste photo panel risk cruise stem option visual sort teach',
+                    'fiscal draw wool chimney carry heart jazz round purity viable toast heart',
                     'http://127.0.0.1:7545'
                 ),
             host: '127.0.0.1', // Localhost (default: none)
