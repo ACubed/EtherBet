@@ -12,6 +12,7 @@ contract Bet {
         Team home;
         Team away;
         GameOutcome outcome;
+        bool exists;
     }
 
     struct Participant {
@@ -24,7 +25,7 @@ contract Bet {
     Participant[] awayers;
     uint256 pool;
 
-    constructor(
+    function setGame(
         uint256 timestamp,
         string memory _homeTeam,
         string memory _awayTeam
@@ -33,11 +34,13 @@ contract Bet {
             timestamp,
             Team(_homeTeam),
             Team(_awayTeam),
-            GameOutcome.PENDING
+            GameOutcome.PENDING,
+            true
         );
     }
 
     function setOutcome(uint8 _outcome) public {
+        require(game.exists);
         require(game.outcome == GameOutcome.PENDING, 'Game already concluded');
         require(game.gameStart < block.timestamp, "Game hasn't started yet");
 
