@@ -9,6 +9,7 @@ import BG_NBA from '../images/card_bg_nba.png';
 import BG_NHL from '../images/card_bg_nhl.png';
 import BG_LCS from '../images/card_bg_lcs.png';
 import axios from 'axios';
+import Schedule from './Schedule.js';
 
 const StyledApp = styled.div`
     align-items: center;
@@ -29,6 +30,8 @@ const StyledCardContainer = styled.div`
 
 const App = () => {
     const [text, setText] = useState('HE L L OOOO');
+    const [scheduleOpen, setScheduleOpen] = useState(false);
+    const [leagueOpen, setLeagueOpen] = useState('NHL');
 
     const options = {
         headers: {
@@ -45,15 +48,36 @@ const App = () => {
             console.log(err);
         });
 
+    const openSchedule = league => {
+        setScheduleOpen(true);
+        setLeagueOpen(league);
+    };
+
     return (
         <StyledApp className="App">
             <Bar />
             <h1>{text['title']}</h1>
             <StyledCardContainer>
-                <Card name="NBA" src={LOGO_NBA} bg={BG_NBA} />
-                <Card name="NHL" src={LOGO_NHL} bg={BG_NHL} />
-                <Card name="LCS" src={LOGO_LCS} bg={BG_LCS} />
+                <Card
+                    onClick={e => openSchedule(e.target.name)}
+                    name="NBA"
+                    src={LOGO_NBA}
+                    bg={BG_NBA}
+                />
+                <Card
+                    onClick={e => openSchedule(e.target.name)}
+                    name="NHL"
+                    src={LOGO_NHL}
+                    bg={BG_NHL}
+                />
+                <Card
+                    onClick={e => openSchedule(e.target.name)}
+                    name="LCS"
+                    src={LOGO_LCS}
+                    bg={BG_LCS}
+                />
             </StyledCardContainer>
+            {scheduleOpen && <Schedule league={leagueOpen}></Schedule>}
         </StyledApp>
     );
 };

@@ -1,44 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import GameInfo from './GameInfo';
 
 const StyledSchedule = styled.div`
     margin: 15px;
-    height: 350px;
-    width: 250px;
-    min-width: 250px;
+    height: 80%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    background-image: url(${props => props.bg});
-    background-position: center;
     box-shadow: 15px 15px 27px black, -15px -15px 27px black;
-
-    transition: 0.4s;
-    filter: grayscale(95%) brightness(80%);
-    :hover {
-        filter: grayscale(0%);
-    }
 `;
 const StyledLogo = styled.img`
-    width: 100%;
+    width: 10%;
+    height: 10%;
 `;
-let upcoming = {};
-axios
-    .get('http://localhost:4000/league')
-    .then(res => {
-        upcoming = res.data;
-    })
-    .catch(err => {
-        console.log(err);
-    });
 
-const Schedule = ({ league, src, bg }) => {
+const Schedule = ({ league, src }) => {
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        getSchedule(league);
+    }, []);
+
+    useEffect(() => {
+        getSchedule(league);
+    }, [league]);
+
+    const getSchedule = league => {
+        axios
+            .get(`http://localhost:4000/league/${league}`)
+            .then(res => {
+                setGames(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
     return (
-        <StyledSchedule bg={bg}>
+        <StyledSchedule>
             <StyledLogo src={src}></StyledLogo>
+            {games.map(game => (
+                <GameInfo game={game}></GameInfo>
+            ))}
         </StyledSchedule>
     );
 };
