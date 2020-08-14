@@ -13,10 +13,9 @@ var router = express.Router();
 const init_contract = async () => {
     web3 = new Web3(`http://localhost:7545`);
     id = await web3.eth.net.getId().catch(err => console.log('after id'));
-    contract = new web3.eth.Contract(
-        Bet.abi,
-        '0x6d0839A135ceF68D0C7e0a30aE8F69171469DF19'
-    );
+    const deployedAddress = Bet.networks[id].address;
+    console.log(`deployed address ${deployedAddress}`);
+    contract = new web3.eth.Contract(Bet.abi, deployedAddress);
     addresses = await web3.eth.getAccounts().then(item => console.log(item));
     initialized = true;
 };
