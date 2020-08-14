@@ -29,7 +29,7 @@ contract Bet {
         uint256 timestamp,
         string memory _homeTeam,
         string memory _awayTeam
-    ) public {
+    ) external {
         game = Game(
             timestamp,
             Team(_homeTeam),
@@ -85,7 +85,7 @@ contract Bet {
     event Received(address, uint256);
 
     function betOnHome() external payable {
-        require(game.exists);
+        require(game.exists, 'game does not exist');
 
         homers.push(Participant(msg.sender, msg.value));
         pool += msg.value;
@@ -93,8 +93,7 @@ contract Bet {
     }
 
     function betOnAway() external payable {
-        require(game.exists);
-
+        require(game.exists, 'game does not exist');
         awayers.push(Participant(msg.sender, msg.value));
         pool += msg.value;
         emit Received(msg.sender, msg.value);
