@@ -10,6 +10,7 @@ import BG_NHL from '../images/card_bg_nhl.png';
 import BG_LCS from '../images/card_bg_lcs.png';
 import axios from 'axios';
 import Schedule from './Schedule.js';
+import BetForm from './BetForm.js';
 
 const StyledApp = styled.div`
     align-items: center;
@@ -93,6 +94,7 @@ const App = () => {
                         src={logoOpen}></Schedule>
                 )}
             </StyledCardContainer>
+            <BetForm></BetForm>
         </StyledApp>
     );
 };
