@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const sessionSchema = new Schema({
-    id: { type: Number, required: true },
+    id: { type: String, required: true },
     game: {
         homeTeam: {
             type: String,

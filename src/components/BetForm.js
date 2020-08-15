@@ -1,10 +1,12 @@
+import axios from 'axios';
 import React from 'react';
 import styled from 'styled-components';
 import useForm from '../hooks/useForm';
+import uuid from 'react-uuid';
 
 const Container = styled.div`
-    height: 40%;
-    width: 20%;
+    height: 100%;
+    width: 100%;
     background-color: black;
     display: flex;
     flex-direction: column;
@@ -20,7 +22,7 @@ const StyledInput = styled.input`
 
 const StyledButton = styled.button`
     width: 50%;
-    height: 5%;
+    height: 30px;
 `;
 
 const StyledTitle = styled.h1`
@@ -40,12 +42,6 @@ const StyledLabel = styled.label`
     color: white;
 `;
 
-const GameContainer = styled.div`
-    width: 80%;
-    height: 10%;
-    color: white;
-`;
-
 const BetForm = ({ home, away, time }) => {
     const { form, onChange, onToggle } = useForm({
         address: '',
@@ -53,13 +49,34 @@ const BetForm = ({ home, away, time }) => {
         amount: '',
     });
 
-    const submitBet = () => {};
+    const submitBet = (homeTeam, awayTeam, time, address, amount) => {
+        let sessionId = time;
+        for (let i = 0; i < homeTeam.length; i++) {
+            sessionId += homeTeam.charAt(i);
+        }
+        for (let i = 0; i < awayTeam.length; i++) {
+            sessionId += awayTeam.charAt(i);
+        }
+        console.log(sessionId);
+        axios
+            .post(`http://localhost:4000/session/${sessionId}`, {
+                homeTeam: homeTeam,
+                awayTeam: awayTeam,
+                time: time,
+                pool: 0,
+                result: 0,
+            })
+            .then(() =>
+                axios.post(`http://localhost:4000/session/${sessionId}/bet`, {
+                    team: homeTeam,
+                    address: address,
+                    amount: amount,
+                })
+            );
+    };
     return (
         <Container>
             <StyledTitle>Place a bet</StyledTitle>
-            <GameContainer>
-                Home: {home} Away: {away} Time: {time}
-            </GameContainer>
             <StyledLabel>Your wallet address:</StyledLabel>
             <StyledInput
                 name="address"
@@ -75,13 +92,18 @@ const BetForm = ({ home, away, time }) => {
                 <option>Home: {home}</option>
                 <option>Away: {away}</option>
             </StyledSelect>
-            <StyledLabel>Amount to bet in gwei:</StyledLabel>
+            <StyledLabel>Amount to bet in Ether:</StyledLabel>
             <StyledInput
                 name="amount"
                 id="amount"
                 value={form.amount}
                 onChange={onChange}></StyledInput>
-            <StyledButton onClick={submitBet}>Submit Bet</StyledButton>
+            <StyledButton
+                onClick={() =>
+                    submitBet(home, away, time, form.address, form.amount)
+                }>
+                Submit Bet
+            </StyledButton>
         </Container>
     );
 };

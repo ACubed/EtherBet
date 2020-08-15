@@ -9,7 +9,7 @@ const Container = styled.div`
     width: 80%;
     overflow: visible;
     border-radius: 16px;
-    opacity: 0.8;
+    opacity: 0.96;
     background: black;
     position: absolute;
     box-shadow: 15px 15px 27px black, -15px -15px 27px black;
@@ -18,6 +18,9 @@ const Container = styled.div`
 const GamesContainer = styled.div`
     width: 100%;
     height: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `;
 
 const StyledLogo = styled.img`
@@ -49,7 +52,7 @@ const Schedule = ({ league, src, close }) => {
                 console.log(err);
             });
     };
-
+    // run once
     useEffect(() => {
         getSchedule(league);
     }, []);

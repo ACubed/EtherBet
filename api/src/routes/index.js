@@ -26,7 +26,7 @@ async function createGame(timestamp, homeTeam, awayTeam) {
     contract.methods
         .setGame(timestamp, homeTeam, awayTeam)
         .send({
-            from: addresses[0],
+            from: '0x72eAB3cfA1bf9996004EAE23687e2cc8B7B029b7',
             gas: 1000000,
         })
         .then(
@@ -40,19 +40,19 @@ async function setOutcome(winner) {
     await contract.methods
         .setOutcome(winner)
         .send({
-            from: addresses[0],
+            from: '0x72eAB3cfA1bf9996004EAE23687e2cc8B7B029b7',
             gas: 1000000,
         })
         .catch(err => console.log(`away: ${err}`));
 }
 
-const bet = async (address, home) => {
+const bet = async (address, home, amount) => {
     if (home) {
         await contract.methods
             .betOnHome()
             .send({
                 from: address,
-                value: web3.utils.toWei('40', 'ether'),
+                value: web3.utils.toWei(amount, 'ether'),
                 gas: 1000000,
             })
             .catch(err => console.log(`home: ${err}`));
@@ -61,7 +61,7 @@ const bet = async (address, home) => {
             .betOnAway()
             .send({
                 from: address,
-                value: web3.utils.toWei('40', 'ether'),
+                value: web3.utils.toWei(amount, 'ether'),
                 gas: 1000000,
             })
             .catch(err => console.log(`away: ${err}`));
@@ -99,17 +99,20 @@ router.post('/session/:id', async (req, res) => {
         );
     }
     try {
-        const newSesh = await sesh.save();
+        const newSesh = await Session.update({ id: sesh.id }, sesh, {
+            upsert: true,
+        });
         res.status(200).json(newSesh);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 });
 
-router.get('/session/:id/bet/:team/address/:address', async (req, res) => {
+router.post('/session/:id/bet/', async (req, res) => {
     let sessionId = req.params.id;
-    let teamName = req.params.team;
-    let betAddr = req.params.address;
+    let teamName = req.body.team;
+    let betAddr = req.body.address;
+    let betAmount = req.body.amount;
     let bettingTeam;
     try {
         const sessionArr = await Session.find({ id: `${sessionId}` });
@@ -125,14 +128,14 @@ router.get('/session/:id/bet/:team/address/:address', async (req, res) => {
         //place a bet on the team
 
         if (initialized) {
-            await bet(betAddr, bettingTeam)
+            await bet(betAddr, bettingTeam, betAmount)
                 .then(() => {
                     console.log('bet placed!');
                 })
                 .catch(err => console.log(`error making bet ${err}`));
         } else {
             await init_contract();
-            await bet(betAddr, bettingTeam)
+            await bet(betAddr, bettingTeam, betAmount)
                 .then(() => {
                     console.log('bet placed!');
                 })

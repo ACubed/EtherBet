@@ -31,25 +31,9 @@ const StyledCardContainer = styled.div`
 
 const StyledSchedule = styled(Schedule)``;
 const App = () => {
-    const [text, setText] = useState('HE L L OOOO');
     const [scheduleOpen, setScheduleOpen] = useState(false);
     const [leagueOpen, setLeagueOpen] = useState('NHL');
     const [logoOpen, setLogoOpen] = useState();
-
-    const options = {
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:4000/',
-        },
-    };
-
-    axios
-        .get('http://localhost:4000/')
-        .then(res => {
-            setText(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        });
 
     const openSchedule = league => {
         console.log(league);
@@ -67,7 +51,6 @@ const App = () => {
     return (
         <StyledApp className="App">
             <Bar />
-            <h1>{text['title']}</h1>
             <StyledCardContainer>
                 <Card
                     onClick={e => openSchedule(e.target.name)}
@@ -94,7 +77,6 @@ const App = () => {
                         src={logoOpen}></Schedule>
                 )}
             </StyledCardContainer>
-            <BetForm></BetForm>
         </StyledApp>
     );
 };
