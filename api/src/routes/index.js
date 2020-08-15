@@ -24,7 +24,7 @@ async function createGame(timestamp, homeTeam, awayTeam) {
     contract.methods
         .setGame(timestamp, homeTeam, awayTeam)
         .send({
-            from: '0x8356c1D05A0E27d275781e78f75Fa23D0C265175',
+            from: addresses[0],
             gas: 1000000,
         })
         .then(
@@ -38,18 +38,18 @@ async function setOutcome(winner) {
     await contract.methods
         .setOutcome(winner)
         .send({
-            from: '0x8356c1D05A0E27d275781e78f75Fa23D0C265175',
+            from: addresses[0],
             gas: 1000000,
         })
         .catch(err => console.log(`away: ${err}`));
 }
 
-const bet = async home => {
+const bet = async (address, home) => {
     if (home) {
         await contract.methods
             .betOnHome()
             .send({
-                from: '0xa449B3e692BE0a00E38770dA76b5849ce829Db63',
+                from: address,
                 value: web3.utils.toWei('40', 'ether'),
                 gas: 1000000,
             })
@@ -58,7 +58,7 @@ const bet = async home => {
         await contract.methods
             .betOnAway()
             .send({
-                from: '0x78947E82Dc7754601d6425630C95286cfbd0dC18',
+                from: address,
                 value: web3.utils.toWei('40', 'ether'),
                 gas: 1000000,
             })
@@ -104,9 +104,10 @@ router.post('/session/:id', async (req, res) => {
     }
 });
 
-router.get('/session/:id/bet/:team', async (req, res) => {
+router.get('/session/:id/bet/:team/address/:address', async (req, res) => {
     let sessionId = req.params.id;
     let teamName = req.params.team;
+    let betAddr = req.params.address;
     let bettingTeam;
     try {
         const sessionArr = await Session.find({ id: `${sessionId}` });
@@ -122,14 +123,14 @@ router.get('/session/:id/bet/:team', async (req, res) => {
         //place a bet on the team
 
         if (initialized) {
-            await bet(bettingTeam)
+            await bet(betAddr, bettingTeam)
                 .then(() => {
                     console.log('bet placed!');
                 })
                 .catch(err => console.log(`error making bet ${err}`));
         } else {
             await init_contract();
-            await bet(bettingTeam)
+            await bet(betAddr, bettingTeam)
                 .then(() => {
                     console.log('bet placed!');
                 })
