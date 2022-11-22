@@ -13,7 +13,7 @@
         "express": "^4.17.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-scripts": "^3.4.3",
+        "react-scripts": "^5.0.1",
         "react-uuid": "^1.0.2",
         "solc": "^0.5.1",
         "styled-components": "^5.1.1",
