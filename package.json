@@ -10,7 +10,7 @@
         "@truffle/hdwallet-provider": "^1.0.42",
         "axios": "^0.19.2",
         "ethereumjs-wallet": "^0.6.0",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-scripts": "^3.4.3",
